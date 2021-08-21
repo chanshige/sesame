@@ -1,6 +1,6 @@
 # Sesame3 SmartLock Api client.
 
-CandyHouseのSesameスマートロックAPIを利用するためのライブラリです。
+CandyHouseのSesameスマートロックAPIを利用するためのライブラリです。  
 This library is for using the [sesame3](https://jp.candyhouse.co/) smart lock API.  
 ※ OpenSSL Crypto library (ext-crypto) is required.
 

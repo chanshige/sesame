@@ -12,8 +12,8 @@
   "require": {
     "php": "^8.0",
     "ext-crypto": "*",
-    "koriym/http-constants": "*",
-    "psr/http-message": "*",
+    "koriym/http-constants": "^1.1",
+    "psr/http-message": "^1.0",
     "guzzlehttp/guzzle": "^7.3"
   },
   "require-dev": {
