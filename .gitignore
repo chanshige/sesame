@@ -1,0 +1,8 @@
+.phpunit.result.cache
+.idea/
+.phpcs.xml
+.phpcs-cache
+build/
+docker/
+vendor/
+phpunit.xml
