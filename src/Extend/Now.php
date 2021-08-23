@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Extend;
 
+use Chanshige\SmartLock\Contracts\NowInterface;
 use DateTimeImmutable;
 
-final class Timestamp
+final class Now implements NowInterface
 {
-    public static function now(): int
+    public function timestamp(): int
     {
         return (new DateTimeImmutable())->getTimestamp();
     }

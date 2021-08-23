@@ -11,7 +11,7 @@ Installation
 --
 ```
 ※準備中
-$ composer require chanshige/sesame-client
+$ composer require chanshige/sesame
 ```
 
 Usage
