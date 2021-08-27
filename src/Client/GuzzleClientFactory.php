@@ -17,6 +17,8 @@ final class GuzzleClientFactory
 {
     /**
      * @param array<string, mixed> $config
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function newInstance(string $apiKey, array $config = []): ClientInterface
     {

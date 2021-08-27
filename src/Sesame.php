@@ -35,6 +35,8 @@ final class Sesame implements SesameInterface
 
     /**
      * @param array<string, mixed> $options
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public static function newInstance(string $apiKey, array $options = []): self
     {

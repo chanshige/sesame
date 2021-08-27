@@ -11,6 +11,9 @@ use function substr;
 
 final class Signature
 {
+    /**
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     */
     public static function generate(string $keyHex, NowInterface $now): string
     {
         return AesCmac::hexdigest($keyHex, substr(bin2hex(UInt32LE::pack($now->timestamp())), 2, 8));

@@ -7,9 +7,7 @@
     <description>PHPMD rule sets</description>
 
     <!-- clean code -->
-    <rule ref="rulesets/cleancode.xml" externalInfoUrl="https://phpmd.org/rules/cleancode.html">
-        <exclude name="StaticAccess"/>
-    </rule>
+    <rule ref="rulesets/cleancode.xml" externalInfoUrl="https://phpmd.org/rules/cleancode.html" />
     <!-- codesize -->
     <rule ref="rulesets/codesize.xml" externalInfoUrl="https://phpmd.org/rules/codesize.html"/>
     <!--controversial -->
