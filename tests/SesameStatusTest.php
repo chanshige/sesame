@@ -6,7 +6,7 @@ namespace Chanshige\SmartLock;
 
 use Chanshige\SmartLock\Action\Status;
 use Chanshige\SmartLock\Contracts\ClientInterface;
-use Chanshige\SmartLock\Contracts\ResponseInterface;
+use Chanshige\SmartLock\Contracts\SesamiResponseInterface;
 use Chanshige\SmartLock\Exception\ClientException;
 use Chanshige\SmartLock\Exception\SesameException;
 use Koriym\HttpConstants\StatusCode;
@@ -37,10 +37,10 @@ class SesameStatusTest extends TestCase
                 return $response;
             });
 
-        $sesame = new Sesame($client);
+        $sesame = new Sesame($client, new ResponseFactory());
         $result = $sesame('488ABAAB-164F-7A86-595F-DDD778CB86C3', new Status());
 
-        $this->assertInstanceOf(ResponseInterface::class, $result);
+        $this->assertInstanceOf(SesamiResponseInterface::class, $result);
         $this->assertSame($code, $result->statusCode());
         $this->assertSame($headers, $result->headers());
         $this->assertSame($body, $result->body());
@@ -57,7 +57,7 @@ class SesameStatusTest extends TestCase
         $client->shouldReceive('request')
             ->andThrow(ClientException::class, 'test_exception', 403);
 
-        $sesame = new Sesame($client);
+        $sesame = new Sesame($client, new ResponseFactory());
         $sesame('488ABAAB-164F-7A86-595F-DDD778CB86C3', new Status());
     }
 

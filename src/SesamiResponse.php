@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock;
 
-use Chanshige\SmartLock\Contracts\ResponseInterface;
-use GuzzleHttp\Utils;
+use Chanshige\SmartLock\Contracts\SesamiResponseInterface;
+use Chanshige\SmartLock\Extend\Json;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
-final class Response implements ResponseInterface
+final class SesamiResponse implements SesamiResponseInterface
 {
     public function __construct(
         private PsrResponseInterface $response
@@ -38,6 +38,6 @@ final class Response implements ResponseInterface
      */
     public function toArray(): array
     {
-        return (array) Utils::jsonDecode($this->body(), true);
+        return (array) Json::decode($this->body(), true);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Contracts;
 
-interface ResponseInterface
+interface SesamiResponseInterface
 {
     /**
      * @return array<string, mixed>

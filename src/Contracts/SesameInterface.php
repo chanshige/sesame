@@ -11,5 +11,5 @@ interface SesameInterface
     /**
      * @throws SesameException
      */
-    public function __invoke(string $uuid, ActionInterface $action): ResponseInterface;
+    public function __invoke(string $uuid, ActionInterface $action): SesamiResponseInterface;
 }
