@@ -6,17 +6,13 @@ namespace Chanshige\SmartLock\Contracts;
 
 interface SesamiResponseInterface
 {
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function headers(): array;
 
     public function statusCode(): int;
 
     public function body(): string;
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function toArray(): array;
 }

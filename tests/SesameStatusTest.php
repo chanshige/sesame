@@ -16,9 +16,7 @@ use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
 class SesameStatusTest extends TestCase
 {
-    /**
-     * @dataProvider sampleDataProvider
-     */
+    /** @dataProvider sampleDataProvider */
     public function testOK(mixed $code, mixed $headers, mixed $body, mixed $formatted): void
     {
         $response = Mockery::mock(PsrResponseInterface::class);
@@ -61,9 +59,7 @@ class SesameStatusTest extends TestCase
         $sesame('488ABAAB-164F-7A86-595F-DDD778CB86C3', new Status());
     }
 
-    /**
-     * @return array<array<int, mixed>>
-     */
+    /** @return array<array<int, mixed>> */
     public function sampleDataProvider(): array
     {
         return [

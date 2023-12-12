@@ -14,8 +14,6 @@ interface ActionInterface extends Stringable
 
     public function method(): string;
 
-    /**
-     * @return array<string, mixed>
-     */
+    /** @return array<string, mixed> */
     public function payload(): array;
 }
