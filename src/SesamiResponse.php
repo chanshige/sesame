@@ -8,10 +8,10 @@ use Chanshige\SmartLock\Contracts\SesamiResponseInterface;
 use Chanshige\SmartLock\Extend\Json;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
-final class SesamiResponse implements SesamiResponseInterface
+final readonly class SesamiResponse implements SesamiResponseInterface
 {
     public function __construct(
-        private readonly PsrResponseInterface $response,
+        private PsrResponseInterface $response,
     ) {
     }
 

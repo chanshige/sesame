@@ -12,7 +12,7 @@ use function hex2bin;
 
 final class AesCmac
 {
-    private const ALGORITHM = 'AES-128-CBC';
+    private const string ALGORITHM = 'AES-128-CBC';
 
     /**
      * Returns a MAC in hex encoding.

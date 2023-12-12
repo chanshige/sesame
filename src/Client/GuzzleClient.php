@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
-final class GuzzleClient implements ClientInterface
+final readonly class GuzzleClient implements ClientInterface
 {
     public function __construct(
         private HttpClientInterface $client,

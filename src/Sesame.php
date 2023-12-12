@@ -15,11 +15,11 @@ use Chanshige\SmartLock\Exception\SesameException;
 
 use function sprintf;
 
-final class Sesame implements SesameInterface
+final readonly class Sesame implements SesameInterface
 {
     public function __construct(
-        private readonly ClientInterface $client,
-        private readonly ResponseFactoryInterface $responseFactory,
+        private ClientInterface $client,
+        private ResponseFactoryInterface $responseFactory,
     ) {
     }
 
