@@ -18,8 +18,8 @@ use function sprintf;
 final class Sesame implements SesameInterface
 {
     public function __construct(
-        private ClientInterface $client,
-        private ResponseFactoryInterface $responseFactory
+        private readonly ClientInterface $client,
+        private readonly ResponseFactoryInterface $responseFactory,
     ) {
     }
 

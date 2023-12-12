@@ -19,7 +19,7 @@ final class Lock extends AbstractAction
     public function __construct(
         string $secretKey,
         string $comment = 'WebAPI',
-        ?NowInterface $now = null
+        NowInterface|null $now = null,
     ) {
         $this->sign = Signature::generate($secretKey, ($now ?? new Now()));
         $this->history = base64_encode($comment);

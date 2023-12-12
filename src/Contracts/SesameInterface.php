@@ -8,8 +8,6 @@ use Chanshige\SmartLock\Exception\SesameException;
 
 interface SesameInterface
 {
-    /**
-     * @throws SesameException
-     */
+    /** @throws SesameException */
     public function __invoke(string $uuid, ActionInterface $action): SesamiResponseInterface;
 }

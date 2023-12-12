@@ -15,7 +15,7 @@ use Psr\Http\Message\ResponseInterface;
 final class GuzzleClient implements ClientInterface
 {
     public function __construct(
-        private HttpClientInterface $client
+        private HttpClientInterface $client,
     ) {
     }
 

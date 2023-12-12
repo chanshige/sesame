@@ -11,7 +11,7 @@
     <arg name="cache" value=".phpcs-cache"/>
 
     <!-- PHP version -->
-    <config name="php_version" value="80008"/>
+    <config name="php_version" value="83000"/>
 
     <!-- Ignore warnings, show progress of the run and show sniff names -->
     <arg value="nps"/>
