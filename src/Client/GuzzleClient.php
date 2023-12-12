@@ -27,7 +27,7 @@ final class GuzzleClient implements ClientInterface
         try {
             return $this->client->request($method, $url, [$this->bodyType($method) => $params]);
         } catch (GuzzleException $e) {
-            throw new ClientException($e->getMessage(), (int) $e->getCode());
+            throw new ClientException($e->getMessage(), $e->getCode());
         }
     }
 
