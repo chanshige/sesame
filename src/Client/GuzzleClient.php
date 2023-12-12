@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
-final class GuzzleClient implements ClientInterface
+final readonly class GuzzleClient implements ClientInterface
 {
     public function __construct(
         private HttpClientInterface $client,
@@ -27,7 +27,7 @@ final class GuzzleClient implements ClientInterface
         try {
             return $this->client->request($method, $url, [$this->bodyType($method) => $params]);
         } catch (GuzzleException $e) {
-            throw new ClientException($e->getMessage(), (int) $e->getCode());
+            throw new ClientException($e->getMessage(), $e->getCode());
         }
     }
 

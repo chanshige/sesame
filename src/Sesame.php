@@ -15,11 +15,11 @@ use Chanshige\SmartLock\Exception\SesameException;
 
 use function sprintf;
 
-final class Sesame implements SesameInterface
+final readonly class Sesame implements SesameInterface
 {
     public function __construct(
-        private readonly ClientInterface $client,
-        private readonly ResponseFactoryInterface $responseFactory,
+        private ClientInterface $client,
+        private ResponseFactoryInterface $responseFactory,
     ) {
     }
 
@@ -31,7 +31,7 @@ final class Sesame implements SesameInterface
 
             return $this->responseFactory->create($response);
         } catch (ClientException $e) {
-            throw new SesameException($e->getMessage(), (int) $e->getCode());
+            throw new SesameException($e->getMessage(), $e->getCode());
         }
     }
 
@@ -47,6 +47,6 @@ final class Sesame implements SesameInterface
 
     private function buildUri(string $uuid, ActionInterface $action): string
     {
-        return sprintf('https://app.candyhouse.co/api/sesame2/%s%s', $uuid, (string) $action);
+        return sprintf('https://app.candyhouse.co/api/sesame2/%s%s', $uuid, $action);
     }
 }
