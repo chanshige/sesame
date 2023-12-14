@@ -12,6 +12,8 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
+use function count;
+
 final readonly class GuzzleClient implements ClientInterface
 {
     public function __construct(
@@ -25,7 +27,9 @@ final readonly class GuzzleClient implements ClientInterface
     public function request(string $method, string $url, array $params = []): ResponseInterface
     {
         try {
-            return $this->client->request($method, $url, [$this->bodyType($method) => $params]);
+            $options = count($params) > 0 ? [$this->bodyType($method) => $params] : [];
+
+            return $this->client->request($method, $url, $options);
         } catch (GuzzleException $e) {
             throw new ClientException($e->getMessage(), $e->getCode());
         }
