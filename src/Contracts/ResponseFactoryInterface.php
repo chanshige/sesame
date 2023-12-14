@@ -8,5 +8,5 @@ use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
 interface ResponseFactoryInterface
 {
-    public function create(PsrResponseInterface $response): SesamiResponseInterface;
+    public function create(PsrResponseInterface $response): SesameResponseInterface;
 }

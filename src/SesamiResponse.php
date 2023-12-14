@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock;
 
-use Chanshige\SmartLock\Contracts\SesamiResponseInterface;
+use Chanshige\SmartLock\Contracts\SesameResponseInterface;
 use Chanshige\SmartLock\Extend\Json;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
-final readonly class SesamiResponse implements SesamiResponseInterface
+final readonly class SesameResponse implements SesameResponseInterface
 {
     public function __construct(
         private PsrResponseInterface $response,
