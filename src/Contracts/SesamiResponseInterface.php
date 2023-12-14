@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Contracts;
 
-interface SesamiResponseInterface
+interface SesameResponseInterface
 {
     /** @return array<string, mixed> */
     public function headers(): array;

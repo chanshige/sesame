@@ -9,7 +9,7 @@ use Chanshige\SmartLock\Contracts\ActionInterface;
 use Chanshige\SmartLock\Contracts\ClientInterface;
 use Chanshige\SmartLock\Contracts\ResponseFactoryInterface;
 use Chanshige\SmartLock\Contracts\SesameInterface;
-use Chanshige\SmartLock\Contracts\SesamiResponseInterface;
+use Chanshige\SmartLock\Contracts\SesameResponseInterface;
 use Chanshige\SmartLock\Exception\ClientException;
 use Chanshige\SmartLock\Exception\SesameException;
 
@@ -23,7 +23,7 @@ final readonly class Sesame implements SesameInterface
     ) {
     }
 
-    public function __invoke(string $uuid, ActionInterface $action): SesamiResponseInterface
+    public function __invoke(string $uuid, ActionInterface $action): SesameResponseInterface
     {
         try {
             $actionUri = $this->buildUri($uuid, $action);
