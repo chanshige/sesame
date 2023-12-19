@@ -6,7 +6,7 @@ namespace Chanshige\SmartLock\Sesame\Http;
 
 interface ResponseInterface
 {
-    /** @return array<string, string|int> */
+    /** @return array<string, array<int, string|int>> */
     public function headers(): array;
 
     public function statusCode(): int;

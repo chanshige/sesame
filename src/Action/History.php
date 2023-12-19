@@ -6,6 +6,8 @@ namespace Chanshige\SmartLock\Sesame\Action;
 
 use Chanshige\SmartLock\Sesame\Interface\DeviceInterface;
 
+use function assert;
+
 final class History extends AbstractAction
 {
     public function __construct(
@@ -13,6 +15,8 @@ final class History extends AbstractAction
         private readonly int $page = 0,
         private readonly int $lg = 50,
     ) {
+        assert($this->device instanceof DeviceInterface);
+
         parent::__construct($device);
     }
 
