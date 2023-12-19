@@ -6,6 +6,8 @@ namespace Chanshige\SmartLock\Sesame\Action;
 
 use BadFunctionCallException;
 
+use function assert;
+
 final class Status extends AbstractAction
 {
     public function method(): string
@@ -18,9 +20,10 @@ final class Status extends AbstractAction
         return '';
     }
 
-    public function uuid(): string
+    public function sign(callable|null $generate = null): string
     {
-        // 利用しないので呼び出された場合は例外
+        assert($generate === null);
+
         throw new BadFunctionCallException('This method is not supported.');
     }
 

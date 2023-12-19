@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Sesame\Action;
 
+use BadFunctionCallException;
 use Chanshige\SmartLock\Sesame\Interface\DeviceInterface;
 
 use function assert;
@@ -28,6 +29,13 @@ final class History extends AbstractAction
     public function path(): string
     {
         return '/history';
+    }
+
+    public function sign(callable|null $generate = null): string
+    {
+        assert($generate === null);
+
+        throw new BadFunctionCallException('This method is not supported.');
     }
 
     /** {@inheritdoc} */
