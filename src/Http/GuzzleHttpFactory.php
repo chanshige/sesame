@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Client;
+namespace Chanshige\SmartLock\Sesame\Http;
 
-use Chanshige\SmartLock\Contracts\ClientInterface;
+use Chanshige\SmartLock\Sesame\Interface\HttpInterface;
+use Chanshige\SmartLock\Sesame\Interface\ResponseFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -13,14 +14,14 @@ use Psr\Http\Message\RequestInterface;
 
 use function array_merge;
 
-final class GuzzleClientFactory
+final class GuzzleHttpFactory
 {
     /**
      * @param array<string, mixed> $config
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public static function newInstance(string $apiKey, array $config = []): ClientInterface
+    public static function newInstance(string $apiKey, array $config = []): HttpInterface
     {
         $stack = new HandlerStack(Utils::chooseHandler());
         $stack->push(Middleware::httpErrors(), 'http_errors');
@@ -29,6 +30,6 @@ final class GuzzleClientFactory
             return $request->withHeader('x-api-key', $apiKey);
         }), 'add_api_key');
 
-        return new GuzzleClient(new Client(array_merge(['handler' => $stack], $config)));
+        return new GuzzleHttp(new Client(array_merge(['handler' => $stack], $config)), new ResponseFactory());
     }
 }

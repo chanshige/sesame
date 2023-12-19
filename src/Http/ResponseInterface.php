@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Contracts;
+namespace Chanshige\SmartLock\Sesame\Http;
 
-interface SesameResponseInterface
+interface ResponseInterface
 {
-    /** @return array<string, mixed> */
+    /** @return array<string, string|int> */
     public function headers(): array;
 
     public function statusCode(): int;
 
     public function body(): string;
 
-    /** @return array<string, mixed> */
+    /** @return array<string, string|int|null> */
     public function toArray(): array;
 }

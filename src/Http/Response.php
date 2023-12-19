@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock;
+namespace Chanshige\SmartLock\Sesame\Http;
 
-use Chanshige\SmartLock\Contracts\SesameResponseInterface;
-use Chanshige\SmartLock\Extend\Json;
+use Chanshige\SmartLock\Sesame\Extend\Json;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
-final readonly class SesameResponse implements SesameResponseInterface
+final readonly class Response implements ResponseInterface
 {
     public function __construct(
         private PsrResponseInterface $response,
@@ -35,6 +34,8 @@ final readonly class SesameResponse implements SesameResponseInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function toArray(): array
     {

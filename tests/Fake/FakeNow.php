@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Fake;
+namespace Chanshige\SmartLock\Sesame\Fake;
 
-use Chanshige\SmartLock\Contracts\NowInterface;
+use Chanshige\SmartLock\Sesame\Interface\NowInterface;
 use DateTimeImmutable;
 
 final class FakeNow implements NowInterface

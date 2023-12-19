@@ -2,29 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock;
+namespace Chanshige\SmartLock\Sesame;
 
-use Chanshige\SmartLock\Action\Status;
-use Chanshige\SmartLock\Contracts\ClientInterface;
-use Chanshige\SmartLock\Contracts\SesameResponseInterface;
-use Chanshige\SmartLock\Exception\ClientException;
-use Chanshige\SmartLock\Exception\SesameException;
+use Chanshige\SmartLock\Sesame\Action\Status;
+use Chanshige\SmartLock\Sesame\Exception\ClientException;
+use Chanshige\SmartLock\Sesame\Exception\SesameException;
+use Chanshige\SmartLock\Sesame\Http\ResponseInterface;
+use Chanshige\SmartLock\Sesame\Interface\HttpInterface;
 use Koriym\HttpConstants\StatusCode;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
 class SesameStatusTest extends TestCase
 {
     /** @dataProvider sampleDataProvider */
     public function testOK(mixed $code, mixed $headers, mixed $body, mixed $formatted): void
     {
-        $response = Mockery::mock(PsrResponseInterface::class);
-        $response->shouldReceive('getStatusCode')->andReturn($code);
-        $response->shouldReceive('getHeaders')->andReturn($headers);
-        $response->shouldReceive('getBody')->andReturn($body);
+        $response = Mockery::mock(ResponseInterface::class);
+        $response->shouldReceive('statusCode')->andReturn($code);
+        $response->shouldReceive('headers')->andReturn($headers);
+        $response->shouldReceive('body')->andReturn($body);
 
-        $client = Mockery::mock(ClientInterface::class);
+        $client = Mockery::mock(HttpInterface::class);
         $client->shouldReceive('request')
             ->once()
             ->andReturnUsing(function (string $method, string $uri, array $params) use ($response) {
@@ -35,10 +34,10 @@ class SesameStatusTest extends TestCase
                 return $response;
             });
 
-        $sesame = new Sesame($client, new ResponseFactory());
-        $result = $sesame('488ABAAB-164F-7A86-595F-DDD778CB86C3', new Status());
+        $sesame = new Client($client);
+        $result = $sesame(new Status(new Device('488ABAAB-164F-7A86-595F-DDD778CB86C3', 'a13d4b890111676ba8fb36ece7e94f7d')));
 
-        $this->assertInstanceOf(SesameResponseInterface::class, $result);
+        $this->assertInstanceOf(ResponseInterface::class, $result);
         $this->assertSame($code, $result->statusCode());
         $this->assertSame($headers, $result->headers());
         $this->assertSame($body, $result->body());
@@ -51,16 +50,16 @@ class SesameStatusTest extends TestCase
         $this->expectExceptionMessage('test_exception');
         $this->expectExceptionCode(403);
 
-        $client = Mockery::mock(ClientInterface::class);
+        $client = Mockery::mock(HttpInterface::class);
         $client->shouldReceive('request')
             ->andThrow(ClientException::class, 'test_exception', 403);
 
-        $sesame = new Sesame($client, new ResponseFactory());
-        $sesame('488ABAAB-164F-7A86-595F-DDD778CB86C3', new Status());
+        $sesame = new Client($client);
+        $sesame(new Status(new Device('488ABAAB-164F-7A86-595F-DDD778CB86C3', 'a13d4b890111676ba8fb36ece7e94f7d')));
     }
 
     /** @return array<array<int, mixed>> */
-    public function sampleDataProvider(): array
+    public static function sampleDataProvider(): array
     {
         return [
             [
