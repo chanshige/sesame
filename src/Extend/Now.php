@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Extend;
+namespace Chanshige\SmartLock\Sesame\Extend;
 
-use Chanshige\SmartLock\Contracts\NowInterface;
+use Chanshige\SmartLock\Sesame\Interface\NowInterface;
 use DateTimeImmutable;
 
 final class Now implements NowInterface

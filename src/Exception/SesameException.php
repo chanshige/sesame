@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Exception;
+namespace Chanshige\SmartLock\Sesame\Exception;
 
 use LogicException;
 use Throwable;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Contracts;
+namespace Chanshige\SmartLock\Sesame\Interface;
 
 interface NowInterface
 {

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Client;
+namespace Chanshige\SmartLock\Sesame\Http;
 
-use Chanshige\SmartLock\Contracts\ActionInterface;
-use Chanshige\SmartLock\Contracts\ClientInterface;
-use Chanshige\SmartLock\Exception\ClientException;
-use GuzzleHttp\ClientInterface as HttpClientInterface;
+use Chanshige\SmartLock\Sesame\Exception\ClientException;
+use Chanshige\SmartLock\Sesame\Interface\HttpInterface;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
-use Psr\Http\Message\ResponseInterface;
+use Koriym\HttpConstants\Method;
 
 use function count;
 
-final readonly class GuzzleClient implements ClientInterface
+final readonly class GuzzleHttp implements HttpInterface
 {
     public function __construct(
-        private HttpClientInterface $client,
+        private GuzzleClientInterface $client,
+        private ResponseFactoryInterface $factory,
     ) {
     }
 
@@ -28,8 +28,9 @@ final readonly class GuzzleClient implements ClientInterface
     {
         try {
             $options = count($params) > 0 ? [$this->bodyType($method) => $params] : [];
+            $response = $this->client->request($method, $url, $options);
 
-            return $this->client->request($method, $url, $options);
+            return $this->factory->create($response);
         } catch (GuzzleException $e) {
             throw new ClientException($e->getMessage(), $e->getCode());
         }
@@ -38,8 +39,8 @@ final readonly class GuzzleClient implements ClientInterface
     private function bodyType(string $method): string
     {
         return match ($method) {
-            ActionInterface::GET => RequestOptions::QUERY,
-            ActionInterface::POST => RequestOptions::JSON,
+            Method::GET => RequestOptions::QUERY,
+            Method::POST => RequestOptions::JSON,
             default => RequestOptions::BODY,
         };
     }

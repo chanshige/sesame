@@ -2,27 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Action;
+namespace Chanshige\SmartLock\Sesame\Action;
 
-use Chanshige\SmartLock\Contracts\NowInterface;
-use Chanshige\SmartLock\Extend\Now;
-use Chanshige\SmartLock\Extend\Signature;
+use Chanshige\SmartLock\Sesame\Interface\DeviceInterface;
 
 use function base64_encode;
 
 final class Lock extends AbstractAction
 {
-    protected int $cmd = 82;
-    protected string $history;
-    protected string $sign;
-
     public function __construct(
-        string $secretKey,
-        string $comment = 'WebAPI',
-        NowInterface|null $now = null,
+        private readonly DeviceInterface $device,
+        private readonly string $comment = 'WebAPI',
     ) {
-        $this->sign = Signature::generate($secretKey, ($now ?? new Now()));
-        $this->history = base64_encode($comment);
+        parent::__construct($device);
     }
 
     public function method(): string
@@ -30,8 +22,18 @@ final class Lock extends AbstractAction
         return self::POST;
     }
 
-    public function __toString(): string
+    public function path(): string
     {
         return '/cmd';
+    }
+
+    /** {@inheritdoc} */
+    public function payload(): array
+    {
+        return [
+            'cmd' => Cmd::LOCK->value,
+            'history' => base64_encode($this->comment),
+            'sign' => $this->device->sign(),
+        ];
     }
 }

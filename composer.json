@@ -32,12 +32,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Chanshige\\SmartLock\\": "src/"
+      "Chanshige\\SmartLock\\Sesame\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Chanshige\\SmartLock\\": "tests/"
+      "Chanshige\\SmartLock\\Sesame\\": "tests/"
     }
   },
   "scripts": {

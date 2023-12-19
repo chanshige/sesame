@@ -1,10 +1,10 @@
-# Sesame3 SmartLock Api client.
+# Sesame3/4/5 SmartLock Api client.
 
 [![Packagist](https://img.shields.io/badge/packagist-v1.0.0-blue.svg)](https://packagist.org/packages/chanshige/sesame)
 [![CI](https://github.com/chanshige/sesame/actions/workflows/ci.yml/badge.svg)](https://github.com/chanshige/sesame/actions/workflows/ci.yml)
 
 CandyHouseのSesameスマートロックAPIを利用するためのライブラリです。  
-This library is for using the [sesame3](https://jp.candyhouse.co/) smart lock API.  
+This library is for using the [sesame3/4/5](https://jp.candyhouse.co/) smart lock API.  
 ※ OpenSSL Crypto library (ext-crypto) is required.
 
 Installation
@@ -19,35 +19,39 @@ Usage
 ```injectablephp
 <?php
 // initialize
-use Chanshige\SmartLock\Action;
-use Chanshige\SmartLock\Sesame;
+use Chanshige\SmartLock\Sesame\Action;
+use Chanshige\SmartLock\Sesame\Client;
+use Chanshige\SmartLock\Sesame\Device;
 
-$uuid = '488ABAAB-164F-7A86-595F-DDD778CB86C3'; // Sesameデバイス固有のID
-$secretKey = 'a13d4b890111676ba8fb36ece7e94f7d' // デバイスを操作するための鍵
+$sesame = Client::newInstance('sesame-api-key');
 
-$sesame = Sesame::newInstance('sesame-api-key');
+$device = new Device(
+    uuid: '488ABAAB-164F-7A86-595F-DDD778CB86C3', // Sesameデバイス固有のID
+    secretKey: 'a13d4b890111676ba8fb36ece7e94f7d', // デバイスを操作するための鍵
+);
+// ※ 2023/12現在、https://partners.candyhouse.co/login から取得可能でした。
 ```
 
 ### Sesameの状態を取得
 ```injectablephp
-$response = $sesame($uuid, new Action\Status());
+$response = $sesame(new Action\Status($device));
 ```
 
 ### Sesameの履歴を取得
 ```injectablephp
-$response = $sesame($uuid, new Action\History());
+$response = $sesame(new Action\History($device, 1, 100));
 ```
 
 ### Sesameの施解錠
 ```injectablephp
 // 鍵をかける
-$response = $sesame($uuid, new Action\Lock($secretKey, 'chanshigeが鍵かけた'));
+$response = $sesame(new Action\Lock($device, 'chanshigeが鍵かけた'));
 
 // 鍵をあける
-$response = $sesame($uuid, new Action\UnLock($secretKey, 'chanshigeが鍵あけた'));
+$response = $sesame(new Action\UnLock($device, 'chanshigeが鍵あけた'));
 
 // 鍵をひたすら回す
-$response = $sesame($uuid, new Action\Toggle($secretKey, 'chanshigeが操作した'));
+$response = $sesame(new Action\Toggle($device, 'chanshigeが操作した'));
 ```
 Test
 --

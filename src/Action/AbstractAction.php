@@ -2,24 +2,36 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Action;
+namespace Chanshige\SmartLock\Sesame\Action;
 
-use Chanshige\SmartLock\Contracts\ActionInterface;
-
-use function array_filter;
-use function get_object_vars;
+use Chanshige\SmartLock\Sesame\Interface\ActionInterface;
+use Chanshige\SmartLock\Sesame\Interface\DeviceInterface;
+use Koriym\HttpConstants\Method;
 
 abstract class AbstractAction implements ActionInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function payload(): array
-    {
-        $callback = static function (mixed $v): bool {
-            return $v !== null;
-        };
+    public const GET = Method::GET;
+    public const POST = Method::POST;
 
-        return array_filter(get_object_vars($this), $callback);
+    public function __construct(
+        private readonly DeviceInterface $device,
+    ) {
     }
+
+    public function uuid(): string
+    {
+        return $this->device->uuid();
+    }
+
+    public function sign(callable|null $generate = null): string
+    {
+        return $this->device->sign($generate);
+    }
+
+    abstract public function method(): string;
+
+    abstract public function path(): string;
+
+    /** @return array<string, string|int>|array{} */
+    abstract public function payload(): array;
 }

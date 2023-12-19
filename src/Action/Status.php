@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Action;
+namespace Chanshige\SmartLock\Sesame\Action;
+
+use BadFunctionCallException;
+
+use function assert;
 
 final class Status extends AbstractAction
 {
@@ -11,8 +15,21 @@ final class Status extends AbstractAction
         return self::GET;
     }
 
-    public function __toString(): string
+    public function path(): string
     {
         return '';
+    }
+
+    public function sign(callable|null $generate = null): string
+    {
+        assert($generate === null);
+
+        throw new BadFunctionCallException('This method is not supported.');
+    }
+
+    /** @return array{} */
+    public function payload(): array
+    {
+        return [];
     }
 }
