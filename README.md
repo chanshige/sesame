@@ -1,6 +1,6 @@
 # Sesame3/4/5 SmartLock Api client.
 
-[![Packagist](https://img.shields.io/badge/packagist-v1.0.0-blue.svg)](https://packagist.org/packages/chanshige/sesame)
+[![Packagist](https://img.shields.io/badge/packagist-v2.0.0-blue.svg)](https://packagist.org/packages/chanshige/sesame)
 [![CI](https://github.com/chanshige/sesame/actions/workflows/ci.yml/badge.svg)](https://github.com/chanshige/sesame/actions/workflows/ci.yml)
 
 CandyHouseのSesameスマートロックAPIを利用するためのライブラリです。  
@@ -35,6 +35,17 @@ $device = new Device(
 ### Sesameの状態を取得
 ```injectablephp
 $response = $sesame(new Action\Status($device));
+
+$response = >>>EOF
+array (size=6)
+  'batteryPercentage' => int 100 // バッテリー残量
+  'batteryVoltage' => float 5.8627565982405 // バッテリー電圧(V)
+  'position' => int 256 // 
+  'CHSesame2Status' => string 'locked' // locked | unlocked | moved
+  'timestamp' => int 1703000024 // Sesameの更新時間
+  'wm2State' => boolean true // wifiモジュールの状態
+EOF;
+
 ```
 
 ### Sesameの履歴を取得
@@ -43,6 +54,8 @@ $response = $sesame(new Action\History($device, 1, 100));
 ```
 
 ### Sesameの施解錠
+APIリクエスト成功は200を返す。bodyは空。（狙い通りに施解錠できたかはStatusで確認する）
+WifiModuleが接続されていない場合は404エラーでThrowされます。
 ```injectablephp
 // 鍵をかける
 $response = $sesame(new Action\Lock($device, 'chanshigeが鍵かけた'));
