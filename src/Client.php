@@ -10,6 +10,7 @@ use Chanshige\SmartLock\Sesame\Http\GuzzleHttpFactory;
 use Chanshige\SmartLock\Sesame\Http\ResponseInterface;
 use Chanshige\SmartLock\Sesame\Interface\ActionInterface;
 use Chanshige\SmartLock\Sesame\Interface\ClientInterface;
+use Chanshige\SmartLock\Sesame\Interface\DeviceInterface;
 use Chanshige\SmartLock\Sesame\Interface\HttpInterface;
 
 use function sprintf;
@@ -32,6 +33,31 @@ final readonly class Client implements ClientInterface
         } catch (ClientException $e) {
             throw new SesameException($e->getMessage(), $e->getCode());
         }
+    }
+
+    public function status(DeviceInterface $device): ResponseInterface
+    {
+        return $this(new Action\Status($device));
+    }
+
+    public function history(DeviceInterface $device, int $page = 0, int $lg = 50): ResponseInterface
+    {
+        return $this(new Action\History($device, $page, $lg));
+    }
+
+    public function lock(DeviceInterface $device, string $note = 'WebAPI'): ResponseInterface
+    {
+        return $this(new Action\Lock($device, $note));
+    }
+
+    public function unLock(DeviceInterface $device, string $note = 'WebAPI'): ResponseInterface
+    {
+        return $this(new Action\Unlock($device, $note));
+    }
+
+    public function toggle(DeviceInterface $device, string $note = 'WebAPI'): ResponseInterface
+    {
+        return $this(new Action\Toggle($device, $note));
     }
 
     /**
