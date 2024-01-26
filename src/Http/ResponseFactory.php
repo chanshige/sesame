@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Chanshige\SmartLock\Sesame\Interface;
+namespace Chanshige\SmartLock\Sesame\Http;
 
-use Chanshige\SmartLock\Sesame\Http\Response;
-use Chanshige\SmartLock\Sesame\Http\ResponseFactoryInterface;
-use Chanshige\SmartLock\Sesame\Http\ResponseInterface;
+use Chanshige\SmartLock\Sesame\Interface\ResponseFactoryInterface;
+use Chanshige\SmartLock\Sesame\Interface\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
 class ResponseFactory implements ResponseFactoryInterface

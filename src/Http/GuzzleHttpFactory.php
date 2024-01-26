@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Sesame\Http;
 
+use Chanshige\SmartLock\Sesame\Interface\ClientInterface;
 use Chanshige\SmartLock\Sesame\Interface\HttpInterface;
-use Chanshige\SmartLock\Sesame\Interface\ResponseFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -13,6 +13,7 @@ use GuzzleHttp\Utils;
 use Psr\Http\Message\RequestInterface;
 
 use function array_merge;
+use function sprintf;
 
 final class GuzzleHttpFactory
 {
@@ -28,7 +29,11 @@ final class GuzzleHttpFactory
         $stack->push(Middleware::prepareBody(), 'prepare_body');
         $stack->push(Middleware::mapRequest(static function (RequestInterface $request) use ($apiKey) {
             return $request->withHeader('x-api-key', $apiKey);
-        }), 'add_api_key');
+        }), 'sesame_api_key');
+
+        if (! isset($config['headers'])) {
+            $config['headers']['User-Agent'] = sprintf('SesameWebAPI/%s', ClientInterface::MAJOR_VERSION);
+        }
 
         return new GuzzleHttp(new Client(array_merge(['handler' => $stack], $config)), new ResponseFactory());
     }

@@ -6,6 +6,8 @@ namespace Chanshige\SmartLock\Sesame\Http;
 
 use Chanshige\SmartLock\Sesame\Exception\ClientException;
 use Chanshige\SmartLock\Sesame\Interface\HttpInterface;
+use Chanshige\SmartLock\Sesame\Interface\ResponseFactoryInterface;
+use Chanshige\SmartLock\Sesame\Interface\ResponseInterface;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Chanshige\SmartLock\Sesame\Http;
 
 use Chanshige\SmartLock\Sesame\Extend\Json;
+use Chanshige\SmartLock\Sesame\Interface\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as PsrResponseInterface;
 
 final readonly class Response implements ResponseInterface

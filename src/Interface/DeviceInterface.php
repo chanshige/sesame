@@ -8,5 +8,5 @@ interface DeviceInterface
 {
     public function uuid(): string;
 
-    public function sign(callable|null $generate = null): string;
+    public function secretKey(): string;
 }

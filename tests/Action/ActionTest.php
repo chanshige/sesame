@@ -13,6 +13,10 @@ use Chanshige\SmartLock\Sesame\Interface\NowInterface;
 use Koriym\HttpConstants\Method;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class ActionTest extends TestCase
 {
     private DeviceInterface $device;
@@ -22,10 +26,11 @@ class ActionTest extends TestCase
 
     protected function setUp(): void
     {
+        $this->now = new FakeNow();
+
         $this->device = new Device(
             $this->uuid,
             $this->secretKey,
-            $this->now = new FakeNow(),
         );
     }
 
@@ -56,7 +61,7 @@ class ActionTest extends TestCase
 
     public function testLockCommand(): void
     {
-        $action = new Lock($this->device, 'test_lock');
+        $action = new Lock($this->device, 'test_lock', $this->now);
         $this->assertInstanceOf(ActionInterface::class, $action);
         $this->assertSame('/cmd', $action->path());
         $this->assertArrayHasKey('history', $payload = $action->payload());
@@ -64,12 +69,12 @@ class ActionTest extends TestCase
         $this->assertArrayHasKey('cmd', $payload);
         $this->assertSame('dGVzdF9sb2Nr', $payload['history']);
         $this->assertSame(Signature::generate($this->secretKey, $this->now), $payload['sign']);
-        $this->assertSame(82, $payload['cmd']);
+        $this->assertSame(CmdCode::LOCK, $payload['cmd']);
     }
 
     public function testUnlockCommand(): void
     {
-        $action = new Unlock($this->device, 'test_unlock');
+        $action = new Unlock($this->device, 'test_unlock', $this->now);
         $this->assertInstanceOf(ActionInterface::class, $action);
         $this->assertSame('/cmd', $action->path());
         $this->assertArrayHasKey('history', $payload = $action->payload());
@@ -77,12 +82,12 @@ class ActionTest extends TestCase
         $this->assertArrayHasKey('cmd', $payload);
         $this->assertSame('dGVzdF91bmxvY2s=', $payload['history']);
         $this->assertSame(Signature::generate($this->secretKey, $this->now), $payload['sign']);
-        $this->assertSame(83, $payload['cmd']);
+        $this->assertSame(CmdCode::UNLOCK, $payload['cmd']);
     }
 
     public function testToggleCommand(): void
     {
-        $action = new Toggle($this->device, 'test_toggle');
+        $action = new Toggle($this->device, 'test_toggle', $this->now);
         $this->assertInstanceOf(ActionInterface::class, $action);
         $this->assertSame('/cmd', $action->path());
         $this->assertArrayHasKey('history', $payload = $action->payload());
@@ -90,6 +95,6 @@ class ActionTest extends TestCase
         $this->assertArrayHasKey('cmd', $payload);
         $this->assertSame('dGVzdF90b2dnbGU=', $payload['history']);
         $this->assertSame(Signature::generate($this->secretKey, $this->now), $payload['sign']);
-        $this->assertSame(88, $payload['cmd']);
+        $this->assertSame(CmdCode::TOGGLE, $payload['cmd']);
     }
 }
