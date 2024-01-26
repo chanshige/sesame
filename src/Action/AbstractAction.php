@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Sesame\Action;
 
+use Chanshige\SmartLock\Sesame\Extend\Signature;
 use Chanshige\SmartLock\Sesame\Interface\ActionInterface;
 use Chanshige\SmartLock\Sesame\Interface\DeviceInterface;
+use Chanshige\SmartLock\Sesame\Interface\NowInterface;
 use Koriym\HttpConstants\Method;
 
 abstract class AbstractAction implements ActionInterface
@@ -23,9 +25,9 @@ abstract class AbstractAction implements ActionInterface
         return $this->device->uuid();
     }
 
-    public function sign(callable|null $generate = null): string
+    public function secretKey(): string
     {
-        return $this->device->sign($generate);
+        return $this->device->secretKey();
     }
 
     abstract public function method(): string;
@@ -34,4 +36,10 @@ abstract class AbstractAction implements ActionInterface
 
     /** @return array<string, string|int>|array{} */
     abstract public function payload(): array;
+
+    /** @SuppressWarnings(PHPMD.StaticAccess) */
+    protected function sign(NowInterface $now): string
+    {
+        return Signature::generate($this->secretKey(), $now);
+    }
 }

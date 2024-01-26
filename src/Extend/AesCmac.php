@@ -7,8 +7,14 @@ namespace Chanshige\SmartLock\Sesame\Extend;
 use Crypto\CMAC;
 use Crypto\MACException;
 use InvalidArgumentException;
+use LogicException;
 
+use function extension_loaded;
 use function hex2bin;
+
+if (! extension_loaded('crypto')) {
+    throw new LogicException('You cannot use the "Chanshige\SmartLock\Sesame\Extend\AesCmac" as the "crypto" extension is not installed.');
+}
 
 final class AesCmac
 {

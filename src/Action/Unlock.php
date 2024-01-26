@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Sesame\Action;
 
+use Chanshige\SmartLock\Sesame\Extend\Now;
 use Chanshige\SmartLock\Sesame\Interface\DeviceInterface;
+use Chanshige\SmartLock\Sesame\Interface\NowInterface;
 
+use function assert;
 use function base64_encode;
 
 final class Unlock extends AbstractAction
@@ -13,7 +16,10 @@ final class Unlock extends AbstractAction
     public function __construct(
         private readonly DeviceInterface $device,
         private readonly string $comment = 'WebAPI',
+        private readonly NowInterface $now = new Now(),
     ) {
+        assert($this->device instanceof DeviceInterface);
+
         parent::__construct($device);
     }
 
@@ -31,9 +37,9 @@ final class Unlock extends AbstractAction
     public function payload(): array
     {
         return [
-            'cmd' => Cmd::UNLOCK->value,
+            'cmd' => CmdCode::UNLOCK,
             'history' => base64_encode($this->comment),
-            'sign' => $this->device->sign(),
+            'sign' => $this->sign($this->now),
         ];
     }
 }

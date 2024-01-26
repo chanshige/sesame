@@ -2,6 +2,7 @@
 .idea/
 .phpcs.xml
 .phpcs-cache
+.phpunit.cache
 build/
 docker/
 vendor/

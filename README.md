@@ -16,6 +16,7 @@ $ composer require chanshige/sesame
 
 Usage
 --
+
 ```injectablephp
 <?php
 // initialize
