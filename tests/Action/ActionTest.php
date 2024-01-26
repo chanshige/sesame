@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Sesame\Action;
 
-use Chanshige\SmartLock\Sesame\Enum;
+use Chanshige\SmartLock\Sesame\Device;
 use Chanshige\SmartLock\Sesame\Extend\Signature;
 use Chanshige\SmartLock\Sesame\Fake\FakeNow;
 use Chanshige\SmartLock\Sesame\Interface\ActionInterface;
@@ -13,7 +13,10 @@ use Chanshige\SmartLock\Sesame\Interface\NowInterface;
 use Koriym\HttpConstants\Method;
 use PHPUnit\Framework\TestCase;
 
-/** @SuppressWarnings(PHPMD.StaticAccess) */
+/**
+ * @SuppressWarnings(PHPMD.StaticAccess)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
 class ActionTest extends TestCase
 {
     private DeviceInterface $device;
