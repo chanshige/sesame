@@ -26,6 +26,11 @@ enum Status: string
         return $this === $status;
     }
 
+    public function isNext(Status $status): bool
+    {
+        return $this->next() === $status;
+    }
+
     public function next(): self
     {
         return match ($this) {
