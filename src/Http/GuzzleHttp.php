@@ -11,6 +11,7 @@ use Chanshige\SmartLock\Sesame\Interface\ResponseInterface;
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
+use InvalidArgumentException;
 use Koriym\HttpConstants\Method;
 
 use function count;
@@ -43,7 +44,7 @@ final readonly class GuzzleHttp implements HttpInterface
         return match ($method) {
             Method::GET => RequestOptions::QUERY,
             Method::POST => RequestOptions::JSON,
-            default => RequestOptions::BODY,
+            default => throw new InvalidArgumentException(sprintf('Unsupported HTTP method: %s', $method)),
         };
     }
 }

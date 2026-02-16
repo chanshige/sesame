@@ -7,6 +7,6 @@ namespace Chanshige\SmartLock\Sesame\Exception;
 use RuntimeException;
 use Throwable;
 
-class ClientException extends RuntimeException implements Throwable
+class ClientException extends RuntimeException
 {
 }
