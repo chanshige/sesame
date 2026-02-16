@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Sesame\Interface;
 
-interface ActionInterface extends DeviceInterface
+interface ActionInterface
 {
+    public function uuid(): string;
+
     public function method(): string;
 
     public function path(): string;

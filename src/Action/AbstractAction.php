@@ -25,11 +25,6 @@ abstract class AbstractAction implements ActionInterface
         return $this->device->uuid();
     }
 
-    public function secretKey(): string
-    {
-        return $this->device->secretKey();
-    }
-
     abstract public function method(): string;
 
     abstract public function path(): string;
@@ -40,6 +35,6 @@ abstract class AbstractAction implements ActionInterface
     /** @SuppressWarnings(PHPMD.StaticAccess) */
     protected function sign(NowInterface $now): string
     {
-        return Signature::generate($this->secretKey(), $now);
+        return Signature::generate($this->device->secretKey(), $now);
     }
 }

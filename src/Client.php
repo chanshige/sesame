@@ -30,7 +30,7 @@ final readonly class Client implements ClientInterface
                 $action->payload(),
             );
         } catch (ClientException $e) {
-            throw new SesameException($e->getMessage(), $e->getCode());
+            throw new SesameException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
