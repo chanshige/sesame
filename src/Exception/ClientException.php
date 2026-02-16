@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Chanshige\SmartLock\Sesame\Exception;
 
-use LogicException;
+use RuntimeException;
 use Throwable;
 
-class ClientException extends LogicException implements Throwable
+class ClientException extends RuntimeException implements Throwable
 {
 }

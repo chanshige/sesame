@@ -34,7 +34,7 @@ final readonly class GuzzleHttp implements HttpInterface
 
             return $this->factory->create($response);
         } catch (GuzzleException $e) {
-            throw new ClientException($e->getMessage(), $e->getCode());
+            throw new ClientException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
